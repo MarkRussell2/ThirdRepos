@@ -10,13 +10,15 @@ namespace Ticketing
         private int section;
         private int quantity;
         private bool discount;
+        private bool child;
         private decimal amountDue;
         private decimal mPrice;
 
         const decimal mdecBalcony = 35.5m;
         const decimal mdecGeneral = 28.75m;
         const decimal mdecBox = 62.0m;
-        const decimal mdecDiscount = 5.0m; 
+        const decimal mdecDiscount = 5.0m;
+        const decimal mdecChild = 10.0m;
 
         private int Section
         {
@@ -35,19 +37,25 @@ namespace Ticketing
             get { return discount; }
             set { discount = value; }
         }
+        private bool Child
+        {
+            get { return child; }
+            set { child = value; }
+        }
 
-         public decimal AmountDue
+        public decimal AmountDue
         {
             get { return amountDue; }
             set { amountDue = value; }
         }
 
-    // Constructor for TcicketPrice
+    // Constructor for TicketPrice
     public TicketPrice(int section, int quantity, bool discount)
     {
         Section = section;
         Quantity = quantity;
         Discount = discount;
+        Child = child;
         AmountDue = amountDue;
     }
 
@@ -68,6 +76,9 @@ namespace Ticketing
          }
          if (discount)
          { mPrice -= mdecDiscount; }
+
+         if (child)
+         { mPrice -= mdecChild; }
 
          AmountDue = mPrice * quantity;
 

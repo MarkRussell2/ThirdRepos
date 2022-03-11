@@ -15,6 +15,7 @@ namespace Ticketing
         int mSection = 2;
         int mQuantity = 0;
         bool mDiscount = false;
+        bool mChild = false;
 
         public TicketsForm()
         {
@@ -31,19 +32,25 @@ namespace Ticketing
             mQuantity = int.Parse(txtQuantity.Text);
 
             if (chkDiscount.Checked)
-                { mDiscount = true; }
+            { mDiscount = true; }
+            if (chkChild.Checked)
+            { mChild = true; }
+            if ((chkDiscount.Checked) && (chkChild.Checked))
+            {
+                lblAmount.Text = ("Error, only one discount is valid");
 
-            if (radBalcony.Checked)
+                if (radBalcony.Checked)
                 { mSection = 1; }
-            if (radGeneral.Checked)
+                if (radGeneral.Checked)
                 { mSection = 2; }
-            if (radBox.Checked)
+                if (radBox.Checked)
                 { mSection = 3; }
 
-            mTicketPrice = new TicketPrice(mSection, mQuantity, mDiscount);
+                mTicketPrice = new TicketPrice(mSection, mQuantity, mDiscount);
 
-            mTicketPrice.calculatePrice();
-            lblAmount.Text = System.Convert.ToString(mTicketPrice.AmountDue);
+                mTicketPrice.calculatePrice();
+                lblAmount.Text = System.Convert.ToString(mTicketPrice.AmountDue);
+            }
         }
-     }
+    }
 }
